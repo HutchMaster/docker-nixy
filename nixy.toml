@@ -8,4 +8,4 @@ pass = ""
 # nginx
 nginx_config = "/etc/nginx/nginx.conf"
 nginx_template = "/etc/nginx/nginx.tmpl"
-nginx_cmd = "docker exec nginx nginx" # optionally openresty
+nginx_cmd = "nginx" # optionally openresty
