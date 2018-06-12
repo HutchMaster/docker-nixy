@@ -18,6 +18,7 @@ stream {
                     {{- end}}
                 }
                 server {
+                    listen 8082;
                     {{- if eq $definition.Protocol "udp" }}
                     listen {{ $definition.Port}};
                     {{- else }}
