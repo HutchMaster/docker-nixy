@@ -11,14 +11,13 @@ events {
 stream {
     {{- range $appid, $app := .Apps}}
         {{- range $id, $definition := $app.PortDefinitions}}
-            {{- if eq $definition.Labels.UDPLoadBalanced}}
+            {{- if $definition.Labels.UDPLoadBalanced}}
                 upstream {{index $app.Hosts 0}}-{{ $id }} {
                     {{- range $task := $app.Tasks}}
                     server {{ $task.Host }}:{{ index $task.Ports $id }};
                     {{- end}}
                 }
                 server {
-                    listen 8082;
                     {{- if eq $definition.Protocol "udp" }}
                     listen {{ $definition.Port}};
                     {{- else }}
