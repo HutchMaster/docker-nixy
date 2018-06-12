@@ -14,7 +14,7 @@ ADD nginx.tmpl /etc/nginx/nginx.tmpl
 ADD nixy.toml /etc/nixy.toml
 ADD startup.sh /startup.sh
 
-EXPOSE 6000 7000
+EXPOSE 8081 7000
 
 CMD /startup.sh
 

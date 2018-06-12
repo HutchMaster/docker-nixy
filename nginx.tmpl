@@ -18,7 +18,7 @@ stream {
                     {{- end}}
                 }
                 server {
-                    {{- if eq $definition.Protocol "tcp" }}
+                    {{- if eq $definition.Protocol "udp" }}
                     listen {{ $definition.Port}};
                     {{- else }}
                     listen {{ $definition.Port}} {{ $definition.Protocol }};
