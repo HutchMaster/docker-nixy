@@ -148,6 +148,7 @@ RUN tar -xzf /tmp/nixy.tgz -C /tmp/ && cp /tmp/${NIXY_RELEASE}/nixy /usr/local/b
 
 ADD nginx.tmpl /etc/nginx/nginx.tmpl
 ADD nixy.toml /etc/nixy.toml
+ADD stream.js /etc/nginx/stream.js
 ADD startup.sh /startup.sh
 
 EXPOSE 8081 7000
