@@ -9,20 +9,16 @@ events {
 }
 stream {
     {{- range $appid, $app := .Apps}}
-    {{- range $id, $definition := $app.PortDefinitions}}
-    upstream {{index $app.Hosts 0}}-{{ $id }} {
-        {{- range $task := $app.Tasks}}
-        server {{ $task.Host }}:{{ index $task.Ports $id }};
-        {{- end}}
-    }
+        upstream udp_upstreams {
+            {{- if $app.Labels.UDPLoadBalanced }}
+                {{- range $task := $app.Tasks}}
+                    server {{ $task.Host }}:{{ index $task.Ports 1 }};
+                {{- end}}
+            {{- end}}
+        }
+    {{- end}}
     server {
-        {{- if eq $definition.Protocol "tcp" }}
-        listen {{ $definition.Port}};
-        {{- else }}
-        listen {{ $definition.Port}} {{ $definition.Protocol }};
-        {{- end}}
-        proxy_pass {{index $app.Hosts 0 }}-{{ $id }};
+        listen 10500;
+        proxy_pass udp_upstreams;
     }
-    {{- end}}
-    {{- end}}
 }
