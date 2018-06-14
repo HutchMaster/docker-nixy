@@ -8,7 +8,7 @@ events {
     multi_accept on;
 }
 stream {
-    js_include stream.js
+    js_include stream.js;
     
     js_set $foo foo;
     {{- range $appid, $app := .Apps}}
