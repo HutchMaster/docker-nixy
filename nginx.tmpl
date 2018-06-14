@@ -1,6 +1,6 @@
 # Example template of how to use Nginx to load balance TCP and UDP.
 worker_processes auto;
-pid /usr/sbin/nginx/nginx.pid;
+pid /var/run/nginx.pid;
 
 events {
     use epoll;
@@ -12,20 +12,18 @@ stream {
     
     js_set $foo foo;
     {{- range $appid, $app := .Apps}}
-        {{- if $app.Labels.UDPLoadBalanced}}
-            {{- range $id, $definition := $app.PortDefinitions}}
-                upstream {{index $app.Hosts 0}}-{{ $id }} {
-                    {{- range $task := $app.Tasks}}
-                    server {{ $task.Host }}:{{ index $task.Ports $id }};
-                    {{- end}}
-                }
-                server {
-                    {{- if eq $definition.Protocol "udp" }}
-                    listen {{ $definition.Port}};
-                    {{- end}}
-                    proxy_pass {{index $app.Hosts 0 }}-{{ $id }};
-                }
-            {{- end}}
+        {{- range $id, $definition := $app.PortDefinitions}}
+            upstream {{index $app.Hosts 0}}-{{ $id }} {
+                {{- range $task := $app.Tasks}}
+                server {{ $task.Host }}:{{ index $task.Ports $id }};
+                {{- end}}
+            }
+            server {
+                {{- if eq $definition.Protocol "udp" }}
+                listen {{ $definition.Port}};
+                {{- end}}
+                proxy_pass {{index $app.Hosts 0 }}-{{ $id }};
+            }
         {{- end}}
     {{- end}}
 }
