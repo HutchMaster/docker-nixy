@@ -10,8 +10,7 @@ events {
 stream {
     {{- range $appid, $app := .Apps}}
         upstream udp_upstreams {
-            {{- if $app.Labels.UDPLoadBalanced}}
-            
+            {{- if val, exists := $app.Labels["UDPLoadBalanced"]; exists}}
                 {{- range $task := $app.Tasks}}
                     server {{ $task.Host }}:{{ index $task.Ports 1 }};
                 {{- end}}
