@@ -9,8 +9,8 @@ events {
 }
 stream {
     {{- range $appid, $app := .Apps}}
-        {{- range $id, $definition := $app.PortDefinitions}}
-            {{- if $definition.Labels.UDPLoadBalanced}}
+        {{- if $app.Labels.UDPLoadBalanced}}
+            {{- range $id, $definition := $app.PortDefinitions}}
                 upstream {{index $app.Hosts 0}}-{{ $id }} {
                     {{- range $task := $app.Tasks}}
                     server {{ $task.Host }}:{{ index $task.Ports $id }};
@@ -19,8 +19,6 @@ stream {
                 server {
                     {{- if eq $definition.Protocol "udp" }}
                     listen {{ $definition.Port}};
-                    {{- else }}
-                    listen {{ $definition.Port}} {{ $definition.Protocol }};
                     {{- end}}
                     proxy_pass {{index $app.Hosts 0 }}-{{ $id }};
                 }
