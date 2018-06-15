@@ -11,7 +11,7 @@ stream {
     {{- range $appid, $app := .Apps}}
         upstream udp_upstreams {
             {{- if $app.Labels.UDPLoadBalanced }}
-                {{- ne $app.Labels.UDPLoadBalanced nil }}
+                {{- if ne $app.Labels.UDPLoadBalanced nil }}
                     {{- range $task := $app.Tasks}}
                         server {{ $task.Host }}:{{ index $task.Ports 1 }};
                     {{- end}}
