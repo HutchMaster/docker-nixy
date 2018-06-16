@@ -21,7 +21,7 @@ stream {
         {{- end}}
         }
     server {
-        listen 10500;
+        listen 10500 udp;
         proxy_pass udp_upstreams;
     }
 }
