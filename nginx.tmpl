@@ -8,17 +8,18 @@ events {
     multi_accept on;
 }
 stream {
-    {{- range $appid, $app := .Apps}}
+
         upstream udp_upstreams {
-            {{- if $app.Labels.UDPLoadBalanced }}
-                {{- if ne $app.Labels.UDPLoadBalanced nil }}
-                    {{- range $task := $app.Tasks}}
-                        server {{ $task.Host }}:{{ index $task.Ports 1 }};
-                    {{- end}}
-                {{- end}}
-            {{- end}}
+        {{- range $appid, $app := .Apps}}
+        {{- range $label, $label := $app.Labels}}
+        {{- if eq $label "UDPLoadBalanced"  }}
+        {{- range $task := $app.Tasks}}
+            server {{ $task.Host }}:{{ index $task.Ports 1 }};
+        {{- end}}
+        {{- end}}
+        {{- end}}
+        {{- end}}
         }
-    {{- end}}
     server {
         listen 10500;
         proxy_pass udp_upstreams;
