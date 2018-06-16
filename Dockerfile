@@ -154,7 +154,7 @@ ADD nixy.toml /etc/nixy.toml
 ADD stream.js /etc/nginx/stream.js
 ADD startup.sh /startup.sh
 
-EXPOSE 8081 7000
+EXPOSE 8081 10500
 
 CMD /startup.sh
 
