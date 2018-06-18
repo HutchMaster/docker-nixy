@@ -1,6 +1,7 @@
 # Example template of how to use Nginx to load balance TCP and UDP.
 worker_processes auto;
 pid /var/run/nginx.pid;
+user root;
 
 events {
     use epoll;
@@ -23,6 +24,5 @@ stream {
         listen 10500 udp;
         proxy_bind $remote_addr transparent;
         proxy_pass udp_upstreams;
-        proxy_responses: 0;
     }
 }
