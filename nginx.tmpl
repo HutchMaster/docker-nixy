@@ -23,5 +23,6 @@ stream {
         listen 10500 udp;
         proxy_bind $remote_addr transparent;
         proxy_pass udp_upstreams;
+        proxy_responses: 0;
     }
 }
