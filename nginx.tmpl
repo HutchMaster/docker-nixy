@@ -8,7 +8,6 @@ events {
     multi_accept on;
 }
 stream {
-
         upstream udp_upstreams {
         {{- range $appid, $app := .Apps}}
         {{- range $label, $label := $app.Labels}}
@@ -22,6 +21,7 @@ stream {
         }
     server {
         listen 10500 udp;
+        proxy_bind $remote_addr transparent;
         proxy_pass udp_upstreams;
     }
 }
