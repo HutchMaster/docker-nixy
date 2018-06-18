@@ -9,6 +9,7 @@ events {
     multi_accept on;
 }
 stream {
+        js_include stream.js;
         upstream udp_upstreams {
         {{- range $appid, $app := .Apps}}
         {{- range $label, $label := $app.Labels}}
@@ -24,5 +25,6 @@ stream {
         listen 10500 udp;
         proxy_bind $remote_addr transparent;
         proxy_pass udp_upstreams;
+        js_filter foo;
     }
 }
