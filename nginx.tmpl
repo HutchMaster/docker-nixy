@@ -22,9 +22,12 @@ stream {
         {{- end}}
         }
     server {
+        log_format basic '$remote_addr [$time_local] '
+                 '$protocol $status $bytes_sent $bytes_received '
+                 '$session_time';
         listen 10500 udp;
         proxy_pass udp_upstreams;
         js_filter foo;
-        access_log /var/log/nginx/access.log combined;
+        access_log /var/log/nginx/access.log basic buffer=32k;
     }
 }
