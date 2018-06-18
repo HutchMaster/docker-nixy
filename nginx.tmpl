@@ -9,6 +9,9 @@ events {
     multi_accept on;
 }
 stream {
+        log_format compression '$remote_addr - $remote_user [$time_local] '
+                           '"$request" $status $body_bytes_sent '
+                           '"$http_referer" "$http_user_agent" '
         js_include stream.js;
         upstream udp_upstreams {
         {{- range $appid, $app := .Apps}}
@@ -25,6 +28,6 @@ stream {
         listen 10500 udp;
         proxy_pass udp_upstreams;
         js_filter foo;
-        access_log /var/log/nginx/access.log combined;
+        access_log /var/log/nginx/access.log compression;
     }
 }
