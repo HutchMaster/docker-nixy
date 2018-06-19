@@ -27,8 +27,8 @@ stream {
     server {
         listen 10500 udp;
         proxy_pass udp_upstreams;
-        proxy_bind $remote_addr:$remote_port transparent;
         js_filter foo;
-        access_log /var/log/nginx/access.log basic buffer=32k;
+        access_log /var/log/nginx/access.log basic;
+        proxy_bind $remote_addr:$remote_port transparent;
     }
 }
