@@ -1,8 +1,6 @@
-FROM alpine
+FROM alpine:3.7
 # Copyright (C) 2016 js <js@yoga>
 MAINTAINER js @ Generik Ltd
-
-FROM alpine:3.7
 
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
@@ -149,6 +147,7 @@ ADD https://github.com/martensson/nixy/releases/download/v${NIXY_VERSION}/${NIXY
 RUN tar -xzf /tmp/nixy.tgz -C /tmp/ && cp /tmp/${NIXY_RELEASE}/nixy /usr/local/bin/
 
 ADD nginx.tmpl /etc/nginx/nginx.tmpl
+ADD nginxInit.conf /etc/nginx/nginx.conf
 ADD nixy.toml /etc/nixy.toml
 ADD stream.js /etc/nginx/stream.js
 ADD startup.sh /startup.sh
