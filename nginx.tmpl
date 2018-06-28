@@ -33,9 +33,10 @@ stream {
         {{- if eq $label "UDPLoadBalanced"  }}
         {{- range $index, $task := $app.Tasks}}
         {{- if eq $index 0}}
-        default {{ $task.Host }}:{{ index $task.Ports 1 }};
+        default udp_upstreams;
         {{- end}}
-        {{ index $task.Ports 1}} {{ $task.Host }}:{{ index $task.Ports 1 }};
+            {{- $ip := split $task.Host "."}}
+            {{join [ $ip, $task.Host ]}} {{ $task.Host }}:{{ index $task.Ports 1 }};
         {{- end}}
         {{- end}}
         {{- end}}
