@@ -140,12 +140,12 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& ln -sf /proc/1/fd/1 /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-ARG NIXY_VERSION=0.15.0
+ARG NIXY_VERSION=0.10.0
 ARG NIXY_RELEASE=nixy_${NIXY_VERSION}_linux_amd64
 
 ADD https://github.com/martensson/nixy/releases/download/v${NIXY_VERSION}/${NIXY_RELEASE}.tar.gz /tmp/nixy.tgz
-RUN tar -xzf /tmp/nixy.tgz -C /tmp/ && cp /tmp/nixy /usr/local/bin/å
-
+RUN tar -xzf /tmp/nixy.tgz -C /tmp/
+RUN cp /tmp/${NIXY_RELEASE}/nixy /usr/local/bin/
 ADD nginx.tmpl /etc/nginx/nginx.tmpl
 ADD nginxInit.conf /etc/nginx/nginx.conf
 ADD nixy.toml /etc/nixy.toml
