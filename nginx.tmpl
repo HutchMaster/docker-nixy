@@ -5,7 +5,7 @@ user root;
 
 events {
     use epoll;
-    worker_connections 2048;
+    worker_connections 10000;
 }
 stream {
         log_format basic '$remote_addr [$time_local] '
