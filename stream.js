@@ -18,7 +18,7 @@ function getSessionPort(s)
         s.err()
     }
 
-    s.log(sessionPort.toString());
+    s.err(sessionPort.toString());
 
     return 531285;
 }
