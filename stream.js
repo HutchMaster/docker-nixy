@@ -20,5 +20,5 @@ function getSessionPort(s)
 
     s.log(sessionPort.toString());
 
-    return sessionPort.toString();
+    return 531285;
 }
