@@ -25,9 +25,8 @@ function getSessionPort(s)
         return 0;
     }
 
-    s.error("Raw session " + rawRead);
+    
     rawRead = parseInt(rawRead).toString();
-    s.error("Parsed session " + rawRead)
 
     return rawRead;
 }   
