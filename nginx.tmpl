@@ -44,7 +44,7 @@ stream {
 
     server {
         listen 10500 udp;
-        access_log /var/log/nginx/access.log basic;
+        access_log /var/log/nginx/access.log warn;
         proxy_timeout 1s;
         proxy_pass $server_choice;
         #proxy_bind $remote_addr:$remote_port transparent;
