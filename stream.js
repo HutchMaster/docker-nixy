@@ -8,10 +8,11 @@ function getSessionPort(s)
     var version = s.buffer.charCodeAt(1);
 
 
-    var sessionPort = 0;
+    var rawRead = "";
     if(version === 1)
     {
-        sessionPort = String.fromCharCode(s.buffer.charCodeAt(4),
+        rawRead = String.fromCharCode(
+        s.buffer.charCodeAt(4),
         s.buffer.charCodeAt(5),
         s.buffer.charCodeAt(6), 
         s.buffer.charCodeAt(7), 
@@ -24,7 +25,9 @@ function getSessionPort(s)
         return 0;
     }
 
-    s.error("Parsed session port" + sessionPort);
+    s.error("Raw session " + sessionPort);
+    rawRead = parseInt(rawRead).toString();
+    s.error("Parsed session " + rawRead)
 
-    return sessionPort;
+    return rawRead;
 }   
