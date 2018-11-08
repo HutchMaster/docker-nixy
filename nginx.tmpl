@@ -10,7 +10,7 @@ events {
 stream {
         log_format basic '$remote_addr [$time_local] '
                     '$protocol $status $bytes_sent $bytes_received '
-                    '$session_time';
+                    '$session_time' '$sessionPort';
         js_include stream.js;
 
         js_set $sessionPort getSessionPort;
@@ -33,7 +33,6 @@ stream {
         {{- if eq $label "UDPLoadBalanced"  }}
         {{- range $index, $task := $app.Tasks}}
         {{- if eq $index 0}}
-        default udp_upstreams;
         {{- end}}
             {{- $ip := split $task.Host "."}}
             {{index $ip 3}}{{ index $task.Ports 1 }} {{ $task.Host }}:{{ index $task.Ports 1 }};
