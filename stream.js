@@ -7,7 +7,7 @@ function getSessionPort(s)
     var bufferLength = s.buffer.length;
     var version = s.buffer.charCodeAt(1);
 
-    
+
     var sessionPort = 0;
     if(version === 1)
     {
@@ -17,6 +17,7 @@ function getSessionPort(s)
     else {
         s.err()
     }
+    s.log(sessionPort);
 
     return sessionPort.toString();
 }
