@@ -10,8 +10,8 @@ function getSessionPort(s)
     var sessionPort = 0;
     if(version === 1)
     {
-        sessionPort = ((s.buffer.charCodeAt(4)) |
-        s.buffer.charCodeAt(5) << 8);
+        sessionPort = ((s.buffer.charCodeAt(19)) |
+        s.buffer.charCodeAt(20) << 8);
     }
     else {
         s.err()
