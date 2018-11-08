@@ -17,6 +17,7 @@ function getSessionPort(s)
     else {
         s.err()
     }
+    s.log(sessionPort.toString());
 
     return sessionPort.toString();
 }
