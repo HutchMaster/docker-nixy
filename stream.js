@@ -6,7 +6,7 @@ function getSessionPort(s)
     }
     var bufferLength = s.buffer.length;
     var version = s.buffer.charCodeAt(1);
-    s.error(s.buffer);
+    s.error("Buffer " + s.buffer);
 
 
     var sessionPort = 0;
@@ -22,7 +22,7 @@ function getSessionPort(s)
         s.err()
     }
 
-    s.error(sessionPort.toString());
+    s.error("Parsed session port" + sessionPort.toString());
 
     return 531285;
 }   
