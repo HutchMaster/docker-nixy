@@ -4,12 +4,9 @@ function getSessionPort(s)
     {
         return null;
     }
-    
+    var bufferLength = s.buffer.length;
+    var version = s.buffer.charCodeAt(1);
 
-    s.on("upload", functon(data, flags){
-        var bufferLength = s.buffer.length;
-        var version = s.buffer.charCodeAt(1);
-    });
     var sessionPort = 0;
     if(version === 1)
     {
