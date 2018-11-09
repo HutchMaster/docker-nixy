@@ -8,13 +8,16 @@ function getSessionPort(s)
     var version = s.buffer.charCodeAt(1);
 
 
-    var rawRead = "";
+    var rawIp = "";
+    var rawPort = "";
     if(version === 1)
     {
-        rawRead = String.fromCharCode(
+        rawIp = String.fromCharCode(
         s.buffer.charCodeAt(4),
         s.buffer.charCodeAt(5),
-        s.buffer.charCodeAt(6), 
+        s.buffer.charCodeAt(6));
+
+        rawPort = String.fromCharCode(
         s.buffer.charCodeAt(7), 
         s.buffer.charCodeAt(8), 
         s.buffer.charCodeAt(9), 
@@ -25,8 +28,7 @@ function getSessionPort(s)
         return 0;
     }
 
+    rawRead = parseInt(rawIp).toString() + parseInt(rawPort).toString();
     
-    rawRead = parseInt(rawRead).toString();
-
     return rawRead;
 }   
