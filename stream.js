@@ -28,7 +28,7 @@ function getSessionPort(s)
         return 0;
     }
 
-    rawRead = parseInt(rawIp).toString() + parseInt(rawPort).toString();
+    var rawRead = parseInt(rawIp).toString() + parseInt(rawPort).toString();
     
     return rawRead;
 }   
