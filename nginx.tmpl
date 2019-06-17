@@ -32,10 +32,8 @@ stream {
         {{- range $label, $label := $app.Labels}}
         {{- if eq $label "UDPLoadBalanced"  }}
         {{- range $index, $task := $app.Tasks}}
-        {{- if eq $index 0}}
-        {{- end}}
             {{- $ip := split $task.Host "."}}
-            {{index $ip 3}}{{ index $task.Ports 1 }} {{ $task.Host }}:{{ index $task.Ports 1 }};
+            {{index $ip 3}}{{ index $task.Ports 1 }} 10.32.0.{{ index $ip 3 }}:{{ index $task.Ports 1 }};
         {{- end}}
         {{- end}}
         {{- end}}
