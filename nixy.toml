@@ -1,5 +1,5 @@
 # nixy listening port
-port = "6000"
+port = "8081"
 # optional X-Proxy header name
 xproxy = "hostname"
 # marathon api
