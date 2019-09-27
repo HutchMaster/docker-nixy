@@ -526,7 +526,7 @@ stream {
         }
 
     server {
-        listen 10500 udp reuseport;
+        listen 10500 udp;
         proxy_timeout 1s;
         proxy_pass $server_choice;
         #proxy_bind $remote_addr:$remote_port transparent;
