@@ -7,6 +7,16 @@ events {
     use epoll;
     worker_connections 10000;
 }
+http {
+    server {
+        listen 127.0.0.1:7777;
+        server_name 127.0.0.1;
+
+        location /nginx_status {
+            stub_status;
+        }
+    }
+}
 stream {
         log_format basic '$remote_addr [$time_local] '
                     '$protocol $status $bytes_sent $bytes_received '
