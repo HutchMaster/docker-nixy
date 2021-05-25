@@ -1,15 +1,15 @@
-var server = null;
+var servers = {};
 
 function getUpstream(s) {
     s.log("s.remoteAddress: " + s.remoteAddress);
-    s.log("returning upstream: " + server);
-    return server;
+    s.log("returning upstream: " + servers[s.remoteAddress]);
+    return servers[s.remoteAddress];
 }
 
 function readLastOctet(s) {
     s.log("s.remoteAddress: " + s.remoteAddress);
 
-    s.log("server: " + server);
+    s.log("server: " + servers[s.remoteAddress]);
 
     var req = "";
     s.on("upload", function(data, flags) {
@@ -25,7 +25,7 @@ function readLastOctet(s) {
                 req.charCodeAt(6));
             s.log("lastOctet: " + parseInt(lastOctet).toString());                        
             
-            server = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
+            servers[s.remoteAddress] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
             s.off("upload");
             return s.done();
         }
