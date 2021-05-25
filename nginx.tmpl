@@ -16,7 +16,7 @@ stream {
 
     server {
         js_preread stream.readLastOctet;
-        error_log /var/log/nginx/error.log info;
+        error_log /var/log/nginx/error.log error;
         listen 10500 udp reuseport;
         proxy_timeout 20s;                
         proxy_pass $server_choice;

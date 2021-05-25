@@ -16,7 +16,7 @@ function getUpstream(s) {
         addr = addr + ":" + port;
     }
 
-    s.log("returning upstream for addr '" + addr + "': " + servers[addr]);
+    s.error("returning upstream for addr '" + addr + "': " + servers[addr]);
 
     return servers[addr];
 }
@@ -70,7 +70,7 @@ function readLastOctet(s) {
                 char1,
                 char2,
                 char3);
-            s.log("setting lastOctet: " + parseInt(lastOctet).toString() + " for upstream addr '" + addr + "'"); 
+            s.error("setting lastOctet: " + parseInt(lastOctet).toString() + " for upstream addr '" + addr + "'"); 
             
             servers[addr] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
             s.off("upload");
