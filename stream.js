@@ -1,30 +1,38 @@
 var servers = {};
 
 function getUpstream(s) {
-    s.log("s.remoteAddress: " + s.remoteAddress);
-    s.log("returning upstream: " + servers[s.remoteAddress]);
-    s.log("getUpstream variables: " + JSON.stringify(s.variables));
-    if (s.variables.js_stream_addr) {
-        s.log("s.variables.js_stream_addr: " + s.variables.js_stream_addr);
+    var addr = s.variables.js_stream_add;
+    if (!addr) {
+        s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);
+        addr = s.remoteAddress;
     }
 
-    if (s.variables.js_stream_port) {
-        s.log("s.variables.js_stream_port: " + s.variables.js_stream_port);
+    var port = s.variables.js_stream_port;
+    if (!port) {
+        s.error("s.variables.js_stream_port unset! " + s.variables.js_stream_port);
     }
-    
-    return servers[s.remoteAddress];
+    else {
+        addr = addr + ":" + port;
+    }
+
+    s.log("returning upstream: " + servers[addr]);
+
+    return servers[addr];
 }
 
 function readLastOctet(s) {
-    s.log("s.remoteAddress: " + s.remoteAddress);
-
-    s.log("server: " + servers[s.remoteAddress]);
-    if (s.variables.js_stream_addr) {
-        s.log("s.variables.js_stream_addr: " + s.variables.js_stream_addr);
+    var addr = s.variables.js_stream_add;
+    if (!addr) {
+        s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);
+        addr = s.remoteAddress;
     }
 
-    if (s.variables.js_stream_port) {
-        s.log("s.variables.js_stream_port: " + s.variables.js_stream_port);
+    var port = s.variables.js_stream_port;
+    if (!port) {
+        s.error("s.variables.js_stream_port unset! " + s.variables.js_stream_port);
+    }
+    else {
+        addr = addr + ":" + port;
     }
 
     var req = "";
@@ -34,15 +42,35 @@ function readLastOctet(s) {
             s.log("req: " + req);
             var version = req.charCodeAt(1);
             s.log("version: " + version);
+            if (isNaN(version)) {
+                s.error("Version is NaN: " + req);
+            }
+
+            var char1 = req.charCodeAt(4);
+            if (isNaN(char1)) {
+                s.error("First digit of final 3-digit octet is NaN: " + req);
+                char1 = 48;
+            }
+
+            var char2 = req.charCodeAt(5);
+            if (isNaN(char2)) {
+                s.error("Second digit of final 3-digit octet is NaN: " + req);
+                char2 = 48;
+            }
+
+            var char3 = req.charCodeAt(6);
+            if (isNaN(char3)) {
+                s.error("Third digit of final 3-digit octet is NaN: " + req);
+                char3 = 48;
+            }
                     
             var lastOctet = String.fromCharCode(
-                req.charCodeAt(4),
-                req.charCodeAt(5),
-                req.charCodeAt(6));
+                char1,
+                char2,
+                char3);
             s.log("lastOctet: " + parseInt(lastOctet).toString());                        
             
-            servers[s.remoteAddress] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
-            s.log("readLastOctet variables: " + JSON.stringify(s.variables));
+            servers[addr] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
             s.off("upload");
             return s.done();
         }
