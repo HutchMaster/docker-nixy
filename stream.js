@@ -4,6 +4,14 @@ function getUpstream(s) {
     s.log("s.remoteAddress: " + s.remoteAddress);
     s.log("returning upstream: " + servers[s.remoteAddress]);
     s.log("getUpstream variables: " + JSON.stringify(s.variables));
+    if (s.variables.js_stream_addr) {
+        s.log("s.variables.js_stream_addr: " + s.variables.js_stream_addr);
+    }
+
+    if (s.variables.js_stream_port) {
+        s.log("s.variables.js_stream_port: " + s.variables.js_stream_port);
+    }
+    
     return servers[s.remoteAddress];
 }
 
@@ -11,6 +19,13 @@ function readLastOctet(s) {
     s.log("s.remoteAddress: " + s.remoteAddress);
 
     s.log("server: " + servers[s.remoteAddress]);
+    if (s.variables.js_stream_addr) {
+        s.log("s.variables.js_stream_addr: " + s.variables.js_stream_addr);
+    }
+
+    if (s.variables.js_stream_port) {
+        s.log("s.variables.js_stream_port: " + s.variables.js_stream_port);
+    }
 
     var req = "";
     s.on("upload", function(data, flags) {

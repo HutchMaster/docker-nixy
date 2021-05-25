@@ -11,6 +11,8 @@ events {
 stream {
     js_import stream.js;  
     js_set $server_choice stream.getUpstream;
+    js_var $js_stream_port $remote_port;
+    js_var $js_stream_addr $remote_addr
 
     server {
         js_preread stream.readLastOctet;
