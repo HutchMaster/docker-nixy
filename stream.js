@@ -1,6 +1,7 @@
 var servers = {};
 
 function getUpstream(s) {
+    s.log(JSON.stringify(s.variables));
     var addr = s.variables.js_stream_addr;
     if (!addr) {
         s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);
@@ -21,6 +22,7 @@ function getUpstream(s) {
 }
 
 function readLastOctet(s) {
+    s.log(JSON.stringify(s.variables));
     var addr = s.variables.js_stream_addr;
     if (!addr) {
         s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);

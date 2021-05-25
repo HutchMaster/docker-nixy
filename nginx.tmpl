@@ -9,10 +9,10 @@ events {
     worker_connections 524288;
 }
 stream {
-    js_import stream.js;  
-    js_set $server_choice stream.getUpstream;
     js_var $js_stream_port $remote_port;
     js_var $js_stream_addr $remote_addr;
+    js_import stream.js;  
+    js_set $server_choice stream.getUpstream;
 
     server {
         js_preread stream.readLastOctet;
