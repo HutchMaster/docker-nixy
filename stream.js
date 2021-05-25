@@ -1,7 +1,7 @@
 var servers = {};
 
 function getUpstream(s) {
-    var addr = s.variables.js_stream_add;
+    var addr = s.variables.js_stream_addr;
     if (!addr) {
         s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);
         addr = s.remoteAddress;
@@ -15,13 +15,13 @@ function getUpstream(s) {
         addr = addr + ":" + port;
     }
 
-    s.log("returning upstream: " + servers[addr]);
+    s.log("returning upstream for addr '" + addr + "': " + servers[addr]);
 
     return servers[addr];
 }
 
 function readLastOctet(s) {
-    var addr = s.variables.js_stream_add;
+    var addr = s.variables.js_stream_addr;
     if (!addr) {
         s.error("s.variables.js_stream_addr unset! Falling back to s.remoteAddress: " + s.remoteAddress);
         addr = s.remoteAddress;
@@ -68,7 +68,7 @@ function readLastOctet(s) {
                 char1,
                 char2,
                 char3);
-            s.log("lastOctet: " + parseInt(lastOctet).toString());                        
+            s.log("setting lastOctet: " + parseInt(lastOctet).toString() + " for upstream addr '" + addr + "'"); 
             
             servers[addr] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
             s.off("upload");
