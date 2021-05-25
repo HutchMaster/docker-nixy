@@ -1,4 +1,5 @@
 # Example template of how to use Nginx to load balance TCP and UDP.
+load_module /usr/lib/nginx/modules/ngx_stream_js_module.so;
 worker_processes auto;
 pid /var/run/nginx.pid;
 user root;
