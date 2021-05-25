@@ -3,6 +3,7 @@ var servers = {};
 function getUpstream(s) {
     s.log("s.remoteAddress: " + s.remoteAddress);
     s.log("returning upstream: " + servers[s.remoteAddress]);
+    s.log("getUpstream variables: " + JSON.stringify(s.variables));
     return servers[s.remoteAddress];
 }
 
@@ -26,6 +27,7 @@ function readLastOctet(s) {
             s.log("lastOctet: " + parseInt(lastOctet).toString());                        
             
             servers[s.remoteAddress] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
+            s.log("readLastOctet variables: " + JSON.stringify(s.variables));
             s.off("upload");
             return s.done();
         }
