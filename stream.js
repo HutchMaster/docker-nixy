@@ -70,9 +70,47 @@ function readLastOctet(s) {
                 char1,
                 char2,
                 char3);
-            s.log("setting lastOctet: " + parseInt(lastOctet).toString() + " for upstream addr '" + addr + "'"); 
+
+            var char4 = req.charCodeAt(7);
+            if (isNaN(char4)) {
+                s.error("First digit of port is NaN: " + req);
+                char4 = 48;
+            }
+
+            var char5 = req.charCodeAt(8);
+            if (isNaN(char5)) {
+                s.error("Second digit of port is NaN: " + req);
+                char5 = 48;
+            }
+
+            var char6 = req.charCodeAt(9);
+            if (isNaN(char6)) {
+                s.error("Third digit of port is NaN: " + req);
+                char6 = 48;
+            }
+
+            var char7 = req.charCodeAt(10);
+            if (isNaN(char7)) {
+                s.error("Fourth digit of port is NaN: " + req);
+                char7 = 48;
+            }
+
+            var char8 = req.charCodeAt(11);
+            if (isNaN(char8)) {
+                s.error("Fifth digit of port is NaN: " + req);
+                char8 = 48;
+            }
+
+            var upstreamPort = String.fromCharCode(
+                char4,
+                char5,
+                char6,
+                char7,
+                char8);
+
+            s.log("setting lastOctet: " + parseInt(lastOctet).toString() + ", port: " +  parseInt(upstreamPort).toString() + " for upstream addr '" + addr + "'"); 
             
-            servers[addr] = "10.32.0." + parseInt(lastOctet).toString() + ":10500";
+            servers[addr] = "10.32.0." + parseInt(lastOctet).toString() + ":" + parseInt(upstreamPort).toString();
             s.off("upload");
             return s.done();
         }
