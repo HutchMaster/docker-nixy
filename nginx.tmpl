@@ -21,4 +21,12 @@ stream {
         proxy_timeout 120s;                
         proxy_pass $server_choice;
     }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10501 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
 }
