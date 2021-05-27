@@ -17,7 +17,79 @@ stream {
     server {
         js_preread stream.readLastOctet;
         error_log /var/log/nginx/error.log error;
-        listen 10500-10509 udp reuseport;
+        listen 10500 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10501 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10502 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10503 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10504 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10505 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10506 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10507 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10508 udp reuseport;
+        proxy_timeout 120s;                
+        proxy_pass $server_choice;
+    }
+
+    server {
+        js_preread stream.readLastOctet;
+        error_log /var/log/nginx/error.log error;
+        listen 10509 udp reuseport;
         proxy_timeout 120s;                
         proxy_pass $server_choice;
     }
